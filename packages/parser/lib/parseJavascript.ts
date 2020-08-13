@@ -122,8 +122,8 @@ export function parseJavascript(
       ) {
         const properties = (path.node
           .value as bt.ObjectExpression).properties.filter(
-          n => bt.isObjectMethod(n) || bt.isObjectProperty(n)
-        ) as (bt.ObjectMethod | bt.ObjectProperty)[]
+            n => bt.isObjectMethod(n) || bt.isObjectProperty(n)
+          ) as (bt.ObjectMethod | bt.ObjectProperty)[]
 
         properties.forEach(node => {
           const commentsRes: CommentResult = getComments(node)
@@ -199,8 +199,8 @@ export function parseJavascript(
       if (onMethod && isVueOption(path, 'methods', componentLevel)) {
         const properties = (path.node
           .value as bt.ObjectExpression).properties.filter(
-          n => bt.isObjectMethod(n) || bt.isObjectProperty(n)
-        ) as (bt.ObjectMethod | bt.ObjectProperty)[]
+            n => bt.isObjectMethod(n) || bt.isObjectProperty(n)
+          ) as (bt.ObjectMethod | bt.ObjectProperty)[]
 
         properties.forEach(node => {
           const commentsRes: CommentResult = getComments(node)
@@ -224,8 +224,8 @@ export function parseJavascript(
       ) {
         const properties = (path.node
           .value as bt.ObjectExpression).properties.filter(
-          n => bt.isObjectMethod(n) || bt.isObjectProperty(n)
-        ) as (bt.ObjectMethod | bt.ObjectProperty)[]
+            n => bt.isObjectMethod(n) || bt.isObjectProperty(n)
+          ) as (bt.ObjectMethod | bt.ObjectProperty)[]
 
         properties.forEach(node => {
           const commentsRes: CommentResult = getComments(node)
@@ -295,7 +295,8 @@ export function parseJavascript(
       if (
         bt.isMemberExpression(node.callee) &&
         bt.isIdentifier(node.callee.property) &&
-        node.callee.property.name === '$emit'
+        node.callee.property.name === '$emit' &&
+        node.callee.object.type === 'ThisExpression'
       ) {
         // for performance issue only check when it is like a `$emit` CallExpression
         const parentExpressionStatementNode = path.findParent(path =>
